@@ -123,10 +123,6 @@ $(function () {
         selector: ".hover3d-child",
         invert: true
     });
-    $('.number-sec .count').countUp({
-        delay: 10,
-        time: 500
-    });
     Splitting();
 });
 (function () {
