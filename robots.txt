@@ -1,0 +1,2 @@
+User-agent: *
+Sitemap: https://www.laytonberth.com/sitemap.xml
