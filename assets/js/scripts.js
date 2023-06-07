@@ -119,13 +119,6 @@ $(function () {
         size: "cover"
     });
     $('.my-paroller').paroller();
-    $('.popup-img , .gallery').magnificPopup({
-        delegate: '.popimg',
-        type: 'image',
-        gallery: {
-            enabled: true
-        }
-    });
     $(".hover3d").hover3d({
         selector: ".hover3d-child",
         invert: true
