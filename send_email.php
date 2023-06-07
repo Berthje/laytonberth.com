@@ -29,7 +29,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   $headers .= "MIME-Version: 1.0" . "\r\n";
   $headers .= "Content-type: text/html; charset=UTF-8" . "\r\n";
 
-  $emailSubject = "New message from your website contact form";
+  $emailSubject = "New message from your contact form!";
 
   // HTML template
   $emailBody = '
@@ -103,4 +103,3 @@ if ($result) {
   header("Location: laytonberth.com");
   exit;
 }
-?>

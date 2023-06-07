@@ -114,7 +114,6 @@ $(function () {
     });
     /* ========== Sticky ========== */
     $("#sticky_item").stick_in_parent();
-    $("a.vid").YouTubePopUp();
     $('.parallaxie').parallaxie({
         speed: 0.8,
         size: "cover"
