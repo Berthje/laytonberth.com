@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Hexstreak</title>
+        <script src="script.js" defer></script>
+        <link rel="stylesheet" href="reset.css">
+        <link rel="stylesheet" href="style.css">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,600;9..40,200&display=swap" rel="stylesheet">
+    </head>
+    <body>
+        <header>
+            <h1>Hexstreak <span>a hex color guessing game.</span></h1>
+            <button type="button" id="new-game">New game</button>
+        </header>
+        <main>
+            <section>
+                <div class="target-guess-group">
+                    <div class="target">
+                        <h2 class="title">Target</h2>
+                        <div class="color"></div>
+                    </div>
+                    <div class="guess">
+                        <h2 class="title">Your Guess</h2>
+                        <div class="color"></div>
+                    </div>
+                </div>
+                <div class="input-section">
+                    <div class="input-and-button">
+                        <input type="text" name="input" id="input" maxlength="7" value="#">
+                        <button class="submit">➜</button>
+                    </div>
+                    <p class="status-text">Start by typing your guess above!</p>
+                </div>
+            </section>
+            <section>
+                <h2>Guesses</h2>
+                <div id="rows-inject"></div>
+            </section>
+        </main>
+    </body>
+</html>

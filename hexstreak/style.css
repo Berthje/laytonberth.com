@@ -1,0 +1,212 @@
+:root {
+    --bg-teal: #58b19f;
+    --white: #ffffff;
+    --off-white: #f8f8f8;
+    --light-grey: #bdbdbd;
+    --dark-grey: #333333;
+    --black: #000000;
+    --red: #fc5c65;
+    --font: "DM Sans", sans-serif;
+}
+
+*,
+*:before,
+*:after {
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    -ms-box-sizing: border-box;
+}
+
+body {
+    background-color: var(--bg-teal);
+    font-family: var(--font);
+}
+
+main {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    align-items: center;
+    padding: 1rem 0.5rem;
+}
+
+header {
+    background-color: var(--off-white);
+    height: 4rem;
+    color: var(--black);
+    position: sticky;
+    top: 0;
+    width: 100%;
+    z-index: 999;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    column-gap: 1rem;
+    font-size: 2.75rem;
+    font-weight: 800;
+    padding: 1rem;
+}
+header h1 span {
+    font-size: 1rem;
+    font-weight: 200;
+    text-decoration: underline;
+}
+
+header button {
+    outline: none;
+    border: 0.175rem solid var(--black);
+    border-radius: 0.25rem;
+    background-color: var(--red);
+    padding: 0.5rem 1rem;
+    font-size: 1rem;
+    color: var(--white);
+    cursor: pointer;
+    text-transform: uppercase;
+    font-weight: bold;
+    letter-spacing: 0.125rem;
+    transition: background-color 0.2s ease;
+}
+
+header button:hover {
+    background-color: var(--dark-grey);
+}
+
+section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    width: 100%;
+    max-width: 37.5rem;
+    border-radius: 1rem;
+    background-color: var(--off-white);
+    padding: 1rem 2rem;
+    row-gap: 1.25rem;
+    -webkit-box-shadow: 0px 0px 32px 6px rgba(0, 0, 0, 0.15);
+    box-shadow: 0px 0px 32px 6px rgba(0, 0, 0, 0.15);
+}
+
+main .target-guess-group {
+    display: flex;
+    justify-content: space-between;
+    align-items: end;
+    width: 100%;
+    column-gap: 2rem;
+}
+
+main section h2 {
+    margin-bottom: 0.75rem;
+    font-size: 1.625rem;
+    text-align: center;
+}
+
+.target-guess-group div.target,
+.target-guess-group div.guess {
+    flex: 1 1 0;
+}
+
+.target-guess-group .color {
+    background-color: var(--dark-grey);
+    border-radius: 0.5rem;
+    border: 1.5px solid var(--dark-grey);
+    aspect-ratio: 1/1;
+}
+
+div.input-and-button {
+    display: flex;
+    column-gap: 0.5rem;
+}
+
+.input-and-button input {
+    width: 10rem;
+    letter-spacing: 0.125rem;
+    height: 2.25rem;
+    background-color: var(--white);
+    color: var(--dark-grey);
+    border: 1px solid var(--light-grey);
+    font-size: 1.5rem;
+    border-radius: 0.375rem;
+    outline: none;
+    padding-left: 0.5rem;
+    text-transform: uppercase;
+}
+
+.input-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.input-section .status-text {
+    margin-top: 1rem;
+    font-size: 1.125rem;
+}
+
+.input-and-button button {
+    background-color: var(--red);
+    color: var(--white);
+    border: none;
+    font-size: 1rem;
+    border-radius: 0.375rem;
+    outline: none;
+    padding: 0;
+    margin: 0;
+    height: 2.25rem;
+    width: 2.25rem;
+    cursor: pointer;
+}
+
+section:nth-of-type(2) {
+    min-height: 25rem;
+}
+
+section:nth-of-type(2) > div#rows-inject {
+    display: flex;
+    flex-direction: column;
+    row-gap: 0.75rem;
+    width: 100%;
+}
+
+section:nth-of-type(2) > div > div {
+    width: 100%;
+    max-width: 37.5rem;
+    display: flex;
+    justify-content: center;
+    column-gap: 0.5rem;
+    height: 5rem;
+    padding-bottom: 0.75rem;
+}
+
+section:nth-of-type(2) > div > :not(:last-child) {
+    border-bottom: 0.075rem solid var(--light-grey);
+}
+
+section:nth-of-type(2) div > div > div {
+    text-align: center;
+    font-weight: bold;
+    border-radius: 8px;
+    font-size: 1.4rem;
+    text-transform: uppercase;
+    background-color: var(--white);
+    padding: 6px;
+    display: flex;
+    flex: 1 1 0%;
+    flex-direction: column;
+    justify-content: space-around;
+}
+
+/* Media Queries */
+@media (max-width: 768px) {
+    header button {
+        padding: 0.5rem 1rem;
+        font-size: 0.875rem;
+    }
+}
+
+/* Selection */
+*::selection {
+    color: var(--white);
+    background-color: var(--bg-teal);
+}
