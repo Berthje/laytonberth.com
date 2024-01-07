@@ -144,7 +144,7 @@ function updateStatusText(isGameOver) {
         if (maxTries === 1) {
             guessWord = "guess";
         }
-        
+
         statusText.textContent = `Wrong guess! Keep trying. ${maxTries} ${guessWord} left.`;
     } else if (isGameOver) {
         const $button = document.querySelector("button.submit");
