@@ -12,10 +12,14 @@ function init() {
     const $inputField = document.querySelector(
         ".input-section .input-and-button input"
     );
+    const $checkboxSlider = document.querySelector("#togBtn");
 
     $button.addEventListener("click", analyzeInput);
     $newGameButton.addEventListener("click", resetGame);
     $inputField.addEventListener("keydown", handleKeyDown);
+    $checkboxSlider.addEventListener("change", setGamemode);
+
+    $checkboxSlider.checked = localStorage.getItem("gamemode") !== "easy";
 
     function handleKeyDown(event) {
         const cursorPosition = $inputField.selectionStart;
@@ -28,10 +32,19 @@ function init() {
             event.preventDefault();
         }
     }
+
+    function setGamemode() {
+        localStorage.setItem(
+            "gamemode",
+            $checkboxSlider.checked ? "hardcore" : "easy"
+        );
+    }
 }
 
 function initializeLocalStorage() {
-    localStorage.setItem("gamemode", "easy");
+    if (!localStorage.getItem("gamemode")) {
+        localStorage.setItem("gamemode", "easy");
+    }
     localStorage.setItem("guessed", JSON.stringify([]));
 }
 
@@ -181,13 +194,18 @@ function addGuess(guessedHexInput) {
         const emojiParagraph = document.createElement("p");
 
         valueParagraph.textContent = char;
-        emojiParagraph.textContent = determineHigherOrLower(
-            char,
-            targetColor.charAt(index)
-        );
 
         div.appendChild(valueParagraph);
-        div.appendChild(emojiParagraph);
+
+        //Check if hardcore is enabled
+        if (localStorage.getItem("gamemode") === "easy") {
+            emojiParagraph.textContent = determineHigherOrLower(
+                char,
+                targetColor.charAt(index)
+            );
+            div.appendChild(emojiParagraph);
+        }
+
         div.style.border = `3px solid #${guessedCharacters.join("")}`;
         containerDiv.appendChild(div);
     });

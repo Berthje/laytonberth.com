@@ -227,3 +227,77 @@ section:nth-of-type(2) div > div > div {
     color: var(--white);
     background-color: var(--bg-teal);
 }
+
+/* Sliders */
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 100px;
+    height: 28px;
+}
+
+.switch input {
+    display: none;
+}
+
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: var(--bg-teal);
+    -webkit-transition: 0.4s;
+    transition: 0.4s;
+    border-radius: 34px;
+}
+
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 20px;
+    width: 20px;
+    left: 4px;
+    bottom: 4px;
+    background-color: white;
+    -webkit-transition: 0.4s;
+    transition: 0.4s;
+    border-radius: 50%;
+}
+
+input:checked + .slider {
+    background-color: var(--red);
+}
+
+input:focus + .slider {
+    box-shadow: 0 0 1px #2196f3;
+}
+
+input:checked + .slider:before {
+    -webkit-transform: translateX(16px);
+    -ms-transform: translateX(16px);
+    transform: translateX(72px);
+}
+
+/*------ ADDED CSS ---------*/
+.slider:after {
+    content: "Easy";
+    color: white;
+    display: block;
+    position: absolute;
+    transform: translate(-50%, -50%);
+    top: 50%;
+    left: 45%;
+    font-size: 0.875rem;
+}
+
+input:checked + .slider:after {
+    content: "Hardcore";
+    transform: translate(-50%, -50%);
+    top: 50%;
+    left: 40%;
+    font-sIze: 0.75rem;
+}
+
+/*--------- END --------*/
