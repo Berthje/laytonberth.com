@@ -206,7 +206,12 @@ $(document).ready(function () {
         return false;
     });
 
-    document.querySelector("#yearsofexperience").textContent = (new Date().getFullYear() - 2021) + " years";
+    const currentYear = new Date().getFullYear();
+    document.querySelector("#overallyearsofexperience").textContent = (currentYear - 2021);
+    document.querySelector("#developmentexperience").textContent = (currentYear - 2021) + " years";
+    document.querySelector("#hostingexperience").textContent = (currentYear - 2023) + " years";
+    document.querySelector("#uiuxexperience").textContent = (currentYear - 2022) + " years";
+    document.querySelector("#graphicdesignexperience").textContent = (currentYear - 2022) + " years";
 });
 $(function () {
     var width = $(window).width();
