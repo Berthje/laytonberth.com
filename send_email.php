@@ -1,12 +1,19 @@
 <?php
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
+  if (!empty($_POST["honeypot"])) {
+    echo json_encode(['error' => 'Spam detected.']);
+    exit;
+  }
+
   // Function to sanitize input using htmlspecialchars
-  function sanitizeInput($input) {
+  function sanitizeInput($input)
+  {
     return htmlspecialchars(trim($input));
   }
 
   // Function to convert line breaks to <br> tags
-  function convertLineBreaks($input) {
+  function convertLineBreaks($input)
+  {
     return nl2br($input);
   }
 
@@ -75,13 +82,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <h1>You received a message!</h1>
       </div>
       <div class="content">
-        <h2>'.$name.' <span style="color: #777777; font-size: 0.8rem;">'.$email.'</span></h2>
-        <h4>'.$subject.'</h4>
+        <h2>' . $name . ' <span style="color: #777777; font-size: 0.8rem;">' . $email . '</span></h2>
+        <h4>' . $subject . '</h4>
         <hr>
-        <p>'.$message.'</p>
+        <p>' . $message . '</p>
       </div>
       <div class="footer">
-        <p>sent to www.laytonberth.com at '.date("d-m-Y H:i:s").'</p>
+        <p>sent to www.laytonberth.com at ' . date("d-m-Y H:i:s") . '</p>
       </div>
     </div>
   </body>
@@ -91,7 +98,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   $result = mail($to, $emailSubject, $emailBody, $headers);
 
   // Check if the email was sent successfully
-if ($result) {
+  if ($result) {
     header("Location: /");
   } else {
     echo json_encode(['error' => 'Sorry, there was an error sending your message.', 'countdown' => 5]);
