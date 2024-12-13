@@ -1833,6 +1833,14 @@ img.left {
   width: 100%;
 }
 
+@media (max-width: 768px) {
+    body.blog img {
+        float: none !important;
+        width: 100% !important;
+        margin: 0.625rem 0 !important;
+    }
+}
+
 /*-------------------------------------------------------
            icon Size
 -------------------------------------------------------*/
