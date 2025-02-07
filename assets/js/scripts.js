@@ -207,7 +207,7 @@ $(document).ready(function () {
     });
 
     const currentYear = new Date().getFullYear();
-    document.querySelector("#overallyearsofexperience").textContent = (currentYear - 2021);
+    document.querySelector("#overallyearsofexperience").textContent = (currentYear - 2022);
     document.querySelector("#developmentexperience").textContent = (currentYear - 2021) + " years";
     document.querySelector("#hostingexperience").textContent = (currentYear - 2023) + " years";
     document.querySelector("#uiuxexperience").textContent = (currentYear - 2022) + " years";
