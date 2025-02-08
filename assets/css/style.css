@@ -3445,4 +3445,5 @@ img.left {
 
 .blog-content img:hover {
     opacity: 0.5;
+    cursor: pointer;
 }
