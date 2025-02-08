@@ -242,13 +242,154 @@ $(document).ready(function () {
         const modal = document.createElement("dialog");
         modal.className = "image-modal";
         modal.innerHTML = `
-        <img style="display: none" src="" alt="">
-        <button class="close-modal" style="display: none">&times;</button>
+        <div class="modal-content">
+            <img style="display: none" src="" alt="">
+            <button class="close-modal" style="display: none">&times;</button>
+            <div class="zoom-controls">
+                <button class="zoom-in">+</button>
+                <button class="zoom-out">-</button>
+                <button class="zoom-reset">Reset</button>
+            </div>
+        </div>
     `;
         document.body.appendChild(modal);
     }
 
-    // Extract close modal logic into reusable function
+    // Handle image clicks
+    $(".blog-content img").on("click", function () {
+        const modal = document.querySelector(".image-modal");
+        const modalImg = modal.querySelector("img");
+        const closeBtn = modal.querySelector(".close-modal");
+        modalImg.src = this.src;
+        modalImg.alt = this.alt;
+        modalImg.style.transform = "scale(1)";
+        modalImg.style.display = "block";
+        closeBtn.style.display = "block";
+        modal.showModal();
+        document.body.style.overflow = "hidden";
+    });
+
+    let scale = 1;
+    const ZOOM_SPEED = 0.25;
+    const MAX_ZOOM = 3;
+    const MIN_ZOOM = 0.5;
+
+    let isDragging = false;
+    let startPos = { x: 0, y: 0 };
+    let currentTranslate = { x: 0, y: 0 };
+
+    const modalContent = document.querySelector(".modal-content");
+    const modalImg = modalContent.querySelector("img");
+
+    document.querySelector(".zoom-in").addEventListener("click", () => {
+        if (scale < MAX_ZOOM) {
+            scale += ZOOM_SPEED;
+            const img = document.querySelector(".image-modal img");
+            const imgRect = img.getBoundingClientRect();
+            const modalRect = modalContent.getBoundingClientRect();
+
+            // Constrain current translation after zoom
+            const maxX = (imgRect.width * scale - modalRect.width) / 2;
+            const maxY = (imgRect.height * scale - modalRect.height) / 2;
+
+            currentTranslate.x = Math.min(
+                Math.max(currentTranslate.x, -maxX),
+                maxX
+            );
+            currentTranslate.y = Math.min(
+                Math.max(currentTranslate.y, -maxY),
+                maxY
+            );
+
+            img.style.transform = `scale(${scale}) translate(${currentTranslate.x}px, ${currentTranslate.y}px)`;
+        }
+    });
+
+    document.querySelector(".zoom-out").addEventListener("click", () => {
+        if (scale > MIN_ZOOM) {
+            scale -= ZOOM_SPEED;
+            const img = document.querySelector(".image-modal img");
+            const imgRect = img.getBoundingClientRect();
+            const modalRect = modalContent.getBoundingClientRect();
+
+            // Constrain current translation after zoom
+            const maxX = (imgRect.width * scale - modalRect.width) / 2;
+            const maxY = (imgRect.height * scale - modalRect.height) / 2;
+
+            currentTranslate.x = Math.min(
+                Math.max(currentTranslate.x, -maxX),
+                maxX
+            );
+            currentTranslate.y = Math.min(
+                Math.max(currentTranslate.y, -maxY),
+                maxY
+            );
+
+            img.style.transform = `scale(${scale}) translate(${currentTranslate.x}px, ${currentTranslate.y}px)`;
+        }
+    });
+
+    modalContent.addEventListener("mousedown", (e) => {
+        isDragging = true;
+        startPos = {
+            x: e.clientX - currentTranslate.x,
+            y: e.clientY - currentTranslate.y,
+        };
+        modalContent.style.cursor = "grabbing";
+    });
+
+    document.addEventListener("mousemove", (e) => {
+        if (!isDragging) return;
+
+        e.preventDefault();
+
+        // Calculate bounds
+        const img = modalImg;
+        const imgRect = img.getBoundingClientRect();
+        const modalRect = modalContent.getBoundingClientRect();
+
+        // Calculate maximum translation bounds based on current scale
+        const maxX = Math.max(0, (imgRect.width * scale - modalRect.width) / 2);
+        const maxY = Math.max(
+            0,
+            (imgRect.height * scale - modalRect.height) / 2
+        );
+
+        // Calculate new position
+        let x = e.clientX - startPos.x;
+        let y = e.clientY - startPos.y;
+
+        // Strictly constrain within bounds
+        if (scale > 1) {
+            x = Math.min(Math.max(x, -maxX), maxX);
+            y = Math.min(Math.max(y, -maxY), maxY);
+        } else {
+            x = 0;
+            y = 0;
+        }
+
+        currentTranslate = { x, y };
+        modalImg.style.transform = `scale(${scale}) translate(${x}px, ${y}px)`;
+    });
+
+    document.addEventListener("mouseup", () => {
+        isDragging = false;
+        modalContent.style.cursor = "grab";
+    });
+
+    // Reset translation when closing modal or resetting zoom
+    function resetImagePosition() {
+        currentTranslate = { x: 0, y: 0 };
+        modalImg.style.transform = `scale(${scale})`;
+    }
+
+    // Add to your existing zoom reset function
+    document.querySelector(".zoom-reset").addEventListener("click", () => {
+        scale = 1;
+        currentTranslate = { x: 0, y: 0 };
+        modalImg.style.transform = `scale(1) translate(0px, 0px)`;
+    });
+
     function closeImageModal() {
         const modal = document.querySelector(".image-modal");
         const modalImg = modal.querySelector("img");
@@ -259,21 +400,10 @@ $(document).ready(function () {
             modalImg.style.display = "none";
             closeBtn.style.display = "none";
             modalImg.src = "";
+            scale = 1;
+            resetImagePosition();
         }, 100);
     }
-
-    // Handle image clicks
-    $(".blog-content img").on("click", function () {
-        const modal = document.querySelector(".image-modal");
-        const modalImg = modal.querySelector("img");
-        const closeBtn = modal.querySelector(".close-modal");
-        modalImg.src = this.src;
-        modalImg.alt = this.alt;
-        modalImg.style.display = "block";
-        closeBtn.style.display = "block";
-        modal.showModal();
-        document.body.style.overflow = "hidden";
-    });
 
     // Close modal on button click or clicking outside
     document.querySelector(".image-modal").addEventListener("click", (e) => {

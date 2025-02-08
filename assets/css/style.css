@@ -3395,19 +3395,16 @@ img.left {
 
 /* ====================== [ End Responsive ] ====================== */
 .image-modal {
-    padding: 0;
+    padding: 20px;
     border: none;
     border-radius: 8px;
     background: rgba(0, 0, 0, 0.9);
+    max-width: 90vw;
+    max-height: 90vh;
     position: fixed;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    max-width: 90vw;
-    max-height: 90vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
 }
 
 .image-modal[open] {
@@ -3419,24 +3416,77 @@ img.left {
 
 .image-modal img {
     max-width: 100%;
-    max-height: 90vh;
-    object-fit: contain;
+    max-height: 80vh;
+    transition: transform 0.3s ease;
+    user-select: none;
+    -webkit-user-drag: none;
 }
-
 .image-modal::backdrop {
     background: rgba(0, 0, 0, 0.8);
 }
 
-.image-modal .close-modal {
+.image-modal .modal-content {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    cursor: grab;
+}
+
+.image-modal .modal-content:active {
+    cursor: grabbing;
+}
+
+.zoom-controls {
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(0, 0, 0, 0.5);
+    padding: 10px;
+    border-radius: 20px;
+    display: flex;
+    gap: 10px;
+}
+
+.zoom-controls button {
+    background: white;
+    border: none;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.zoom-controls button:hover {
+    background: #eee;
+}
+
+.zoom-reset {
+    font-size: 12px !important;
+    width: 50px !important;
+    border-radius: 15px !important;
+}
+
+.close-modal {
     position: absolute;
     top: 10px;
     right: 10px;
-    background: none;
+    background: white;
     border: none;
-    color: white;
-    font-size: 24px;
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
     cursor: pointer;
-    padding: 5px 10px;
+    font-size: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .blog-content img {
